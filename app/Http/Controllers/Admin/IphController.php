@@ -23,15 +23,27 @@ class IphController extends Controller
     // Simpan Data
     public function saveMingguan(Request $request)
     {
-        $status = 'Stabil';
-        if ($request->perubahan_harga > 0) {
-            $status = 'Naik';
-        } elseif ($request->perubahan_harga < 0) {
-            $status = 'Turun';
-        }
+        $data = $request->validate([
+            'tahun' => 'required|integer',
+            'bulan' => 'required|string',
+            'minggu_ke' => 'required|integer',
+            'perubahan_harga' => 'required|numeric',
+            'fluktuasi_tertinggi' => 'nullable|string',
+            'nama_komoditas_1' => 'nullable|string',
+            'nilai_andil_1' => 'nullable|numeric',
+            'nama_komoditas_2' => 'nullable|string',
+            'nilai_andil_2' => 'nullable|numeric',
+            'nama_komoditas_3' => 'nullable|string',
+            'nilai_andil_3' => 'nullable|numeric',
+            'nama_komoditas_4' => 'nullable|string',
+            'nilai_andil_4' => 'nullable|numeric',
+            'nama_komoditas_5' => 'nullable|string',
+            'nilai_andil_5' => 'nullable|numeric',
+            'disparitas_harga' => 'nullable|numeric',
+            'nilai_fluktuasi' => 'nullable|numeric',
+        ]);
 
-        $data = $request->all();
-        $data['status_harga'] = $status;
+        $data['status_harga'] = $this->statusHarga($data['perubahan_harga']);
 
         IphMingguan::create($data);
 
@@ -40,15 +52,26 @@ class IphController extends Controller
 
     public function saveBulanan(Request $request)
     {
-        $status = 'Stabil';
-        if ($request->perubahan_harga > 0) {
-            $status = 'Naik';
-        } elseif ($request->perubahan_harga < 0) {
-            $status = 'Turun';
-        }
+        $data = $request->validate([
+            'tahun' => 'required|integer',
+            'bulan' => 'required|string',
+            'perubahan_harga' => 'required|numeric',
+            'fluktuasi_tertinggi' => 'nullable|string',
+            'nama_komoditas_1' => 'nullable|string',
+            'nilai_andil_1' => 'nullable|numeric',
+            'nama_komoditas_2' => 'nullable|string',
+            'nilai_andil_2' => 'nullable|numeric',
+            'nama_komoditas_3' => 'nullable|string',
+            'nilai_andil_3' => 'nullable|numeric',
+            'nama_komoditas_4' => 'nullable|string',
+            'nilai_andil_4' => 'nullable|numeric',
+            'nama_komoditas_5' => 'nullable|string',
+            'nilai_andil_5' => 'nullable|numeric',
+            'disparitas_harga' => 'nullable|numeric',
+            'nilai_fluktuasi' => 'nullable|numeric',
+        ]);
 
-        $data = $request->all();
-        $data['status_harga'] = $status;
+        $data['status_harga'] = $this->statusHarga($data['perubahan_harga']);
 
         IphBulanan::create($data);
 
@@ -58,34 +81,22 @@ class IphController extends Controller
     // Tampilkan Data
     public function viewMingguan(Request $request)
     {
-        $query = IphMingguan::query();
-
-        if ($request->tahun) {
-            $query->where('tahun', $request->tahun);
-        }
-
-        if ($request->bulan) {
-            $query->where('bulan', $request->bulan);
-        }
-
-        $data = $query->orderByDesc('created_at')->get();
+        $data = IphMingguan::query()
+            ->when($request->tahun, fn($q) => $q->where('tahun', $request->tahun))
+            ->when($request->bulan, fn($q) => $q->where('bulan', $request->bulan))
+            ->orderByDesc('created_at')
+            ->get();
 
         return view('admin.view_mingguan', compact('data'));
     }
 
     public function viewBulanan(Request $request)
     {
-        $query = IphBulanan::query();
-
-        if ($request->tahun) {
-            $query->where('tahun', $request->tahun);
-        }
-
-        if ($request->bulan) {
-            $query->where('bulan', $request->bulan);
-        }
-
-        $data = $query->orderByDesc('created_at')->get();
+        $data = IphBulanan::query()
+            ->when($request->tahun, fn($q) => $q->where('tahun', $request->tahun))
+            ->when($request->bulan, fn($q) => $q->where('bulan', $request->bulan))
+            ->orderByDesc('created_at')
+            ->get();
 
         return view('admin.view_bulanan', compact('data'));
     }
@@ -106,36 +117,59 @@ class IphController extends Controller
     // Update Data
     public function updateMingguan(Request $request, $id)
     {
-        $status = 'Stabil';
-        if ($request->perubahan_harga > 0) {
-            $status = 'Naik';
-        } elseif ($request->perubahan_harga < 0) {
-            $status = 'Turun';
-        }
+        $data = $request->validate([
+            'tahun' => 'required|integer',
+            'bulan' => 'required|string',
+            'minggu_ke' => 'required|integer',
+            'perubahan_harga' => 'required|numeric',
+            'fluktuasi_tertinggi' => 'nullable|string',
+            'nama_komoditas_1' => 'nullable|string',
+            'nilai_andil_1' => 'nullable|numeric',
+            'nama_komoditas_2' => 'nullable|string',
+            'nilai_andil_2' => 'nullable|numeric',
+            'nama_komoditas_3' => 'nullable|string',
+            'nilai_andil_3' => 'nullable|numeric',
+            'nama_komoditas_4' => 'nullable|string',
+            'nilai_andil_4' => 'nullable|numeric',
+            'nama_komoditas_5' => 'nullable|string',
+            'nilai_andil_5' => 'nullable|numeric',
+            'disparitas_harga' => 'nullable|numeric',
+            'nilai_fluktuasi' => 'nullable|numeric',
+        ]);
 
-        $data = $request->except('_token');
-        $data['status_harga'] = $status;
+        $data['status_harga'] = $this->statusHarga($data['perubahan_harga']);
 
-        IphMingguan::where('id', $id)->update($data);
+        IphMingguan::findOrFail($id)->update($data);
 
-        return redirect('/admin/iph/view-mingguan')->with('success', 'Data IPH Mingguan berhasil diperbarui.');
+        return redirect()->route('iph-mingguan.index')->with('success', 'Data IPH Mingguan berhasil diperbarui.');
     }
 
     public function updateBulanan(Request $request, $id)
     {
-        $status = 'Stabil';
-        if ($request->perubahan_harga > 0) {
-            $status = 'Naik';
-        } elseif ($request->perubahan_harga < 0) {
-            $status = 'Turun';
-        }
+        $data = $request->validate([
+            'tahun' => 'required|integer',
+            'bulan' => 'required|string',
+            'perubahan_harga' => 'required|numeric',
+            'fluktuasi_tertinggi' => 'nullable|string',
+            'nama_komoditas_1' => 'nullable|string',
+            'nilai_andil_1' => 'nullable|numeric',
+            'nama_komoditas_2' => 'nullable|string',
+            'nilai_andil_2' => 'nullable|numeric',
+            'nama_komoditas_3' => 'nullable|string',
+            'nilai_andil_3' => 'nullable|numeric',
+            'nama_komoditas_4' => 'nullable|string',
+            'nilai_andil_4' => 'nullable|numeric',
+            'nama_komoditas_5' => 'nullable|string',
+            'nilai_andil_5' => 'nullable|numeric',
+            'disparitas_harga' => 'nullable|numeric',
+            'nilai_fluktuasi' => 'nullable|numeric',
+        ]);
 
-        $data = $request->except('_token');
-        $data['status_harga'] = $status;
+        $data['status_harga'] = $this->statusHarga($data['perubahan_harga']);
 
-        IphBulanan::where('id', $id)->update($data);
+        IphBulanan::findOrFail($id)->update($data);
 
-        return redirect('/admin/iph/view-bulanan')->with('success', 'Data IPH Bulanan berhasil diperbarui.');
+        return redirect()->route('iph-bulanan.index')->with('success', 'Data IPH Bulanan berhasil diperbarui.');
     }
 
     // Hapus Data
@@ -149,5 +183,11 @@ class IphController extends Controller
     {
         IphBulanan::destroy($id);
         return redirect()->back()->with('success', 'Data IPH Bulanan berhasil dihapus.');
+    }
+
+    // Status Harga Otomatis
+    private function statusHarga($value)
+    {
+        return $value > 0 ? 'Naik' : ($value < 0 ? 'Turun' : 'Stabil');
     }
 }

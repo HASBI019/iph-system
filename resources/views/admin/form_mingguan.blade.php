@@ -4,12 +4,12 @@
     <h2 class="text-2xl font-bold mb-6">Form Input IPH Mingguan</h2>
 
     @if (session('success'))
-        <div class="bg-green-100 border border-green-400 text-green-700 px-4 py-2 rounded mb-4">
+        <div class="bg-green-100 border border-green-400 text-green-800 px-4 py-3 rounded mb-6">
             {{ session('success') }}
         </div>
     @endif
 
-    <form method="POST" action="/admin/iph/save-mingguan" class="space-y-6">
+    <form method="POST" action="{{ route('iph-mingguan.store') }}" class="space-y-6">
         @csrf
 
         {{-- Tahun --}}
@@ -17,8 +17,7 @@
             <label class="block font-medium">Tahun:</label>
             <select name="tahun" required class="w-full p-2 border rounded">
                 <option value="">-- Pilih Tahun --</option>
-                @php $tahunAwal = 2023; $tahunSekarang = date('Y'); @endphp
-                @for ($tahun = $tahunAwal; $tahun <= $tahunSekarang; $tahun++)
+                @for ($tahun = 2023; $tahun <= date('Y'); $tahun++)
                     <option value="{{ $tahun }}">{{ $tahun }}</option>
                 @endfor
             </select>
@@ -39,23 +38,23 @@
         {{-- Minggu ke --}}
         <div>
             <label class="block font-medium">Minggu ke:</label>
-            <select name="minggu_ke" class="w-full p-2 border rounded">
+            <select name="minggu_ke" required class="w-full p-2 border rounded">
                 <option value="">-- Pilih Minggu --</option>
                 @for ($i = 1; $i <= 5; $i++)
-                    <option value="Minggu {{ $i }}">Minggu {{ $i }}</option>
+                    <option value="{{ $i }}">{{ 'Minggu '.$i }}</option>
                 @endfor
             </select>
         </div>
 
         {{-- Perubahan Harga --}}
         <div>
-            <label class="block font-medium">Perubahan Harga:</label>
+            <label class="block font-medium">Perubahan Harga (%):</label>
             <input type="number" step="0.0001" name="perubahan_harga" required class="w-full p-2 border rounded">
         </div>
 
         {{-- Fluktuasi Tertinggi --}}
         <div>
-            <label class="block font-medium">Fluktuasi Tertinggi :</label>
+            <label class="block font-medium">Fluktuasi Tertinggi:</label>
             <input type="text" name="fluktuasi_tertinggi" class="w-full p-2 border rounded">
         </div>
 
@@ -65,7 +64,7 @@
             <div id="komoditas-wrapper" class="space-y-4">
                 <div class="grid grid-cols-2 gap-4">
                     <input type="text" name="nama_komoditas_1" placeholder="Nama Komoditas" class="w-full p-2 border rounded">
-                    <input type="number" step="0.0001" name="nilai_andil_1" placeholder="Nilai Andil" class="w-full p-2 border rounded">
+                    <input type="number" step="0.0001" name="nilai_andil_1" placeholder="Nilai Andil (%)" class="w-full p-2 border rounded">
                 </div>
             </div>
             <button type="button" onclick="tambahKomoditas()" class="mt-2 bg-green-600 text-white px-3 py-2 rounded hover:bg-green-700">
@@ -75,13 +74,13 @@
 
         {{-- Disparitas Harga --}}
         <div>
-            <label class="block font-medium">Disparitas Harga :</label>
+            <label class="block font-medium">Disparitas Harga:</label>
             <input type="number" step="0.0001" name="disparitas_harga" class="w-full p-2 border rounded">
         </div>
 
         {{-- Nilai Fluktuasi --}}
         <div>
-            <label class="block font-medium">Nilai Fluktuasi :</label>
+            <label class="block font-medium">Nilai Fluktuasi:</label>
             <input type="number" step="0.0001" name="nilai_fluktuasi" class="w-full p-2 border rounded">
         </div>
 
@@ -95,15 +94,12 @@
         let index = 2;
         function tambahKomoditas() {
             const wrapper = document.getElementById('komoditas-wrapper');
-
             const row = document.createElement('div');
             row.className = 'grid grid-cols-2 gap-4';
-
             row.innerHTML = `
                 <input type="text" name="nama_komoditas_${index}" placeholder="Nama Komoditas" class="w-full p-2 border rounded">
-                <input type="number" step="0.0001" name="nilai_andil_${index}" placeholder="Nilai Andil" class="w-full p-2 border rounded">
+                <input type="number" step="0.0001" name="nilai_andil_${index}" placeholder="Nilai Andil (%)" class="w-full p-2 border rounded">
             `;
-
             wrapper.appendChild(row);
             index++;
         }

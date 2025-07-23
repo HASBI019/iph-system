@@ -3,6 +3,19 @@
 @section('title', 'Beranda IPH')
 
 @section('content')
+<section class="w-full px-6 md:px-16 xl:px-24 py-10 flex items-center justify-between flex-wrap">
+    {{-- 🖼️ Logo Sistem --}}
+    <div class="mb-6 md:mb-0">
+        <h1 class="text-3xl font-bold text-indigo-800">Sistem IPH Tasikmalaya</h1>
+        <p class="text-gray-600 mt-2">Indeks Perubahan Harga Kabupaten Tasikmalaya</p>
+    </div>
+    @if ($setting && $setting->foto)
+        <div class="w-32 h-32 rounded-full overflow-hidden border-4 border-indigo-200 shadow-lg">
+            <img src="{{ asset('storage/' . $setting->foto) }}" alt="Logo IPH" class="object-cover w-full h-full">
+        </div>
+    @endif
+</section>
+
 <section class="w-full px-6 md:px-16 xl:px-24 py-12">
     <h2 class="text-4xl font-bold text-blue-800 mb-6">📊 Grafik IPH Mingguan</h2>
     <p class="text-base text-gray-700 mb-8 leading-relaxed">
@@ -18,7 +31,7 @@
     <h2 class="text-2xl font-semibold text-blue-800 mb-3">ℹ️ Tentang IPH</h2>
     <p class="text-base text-gray-700 leading-relaxed">
         Indeks Perubahan Harga (IPH) merupakan indikator fluktuasi harga komoditas terpilih yang dihimpun secara mingguan dan bulanan oleh Badan Pusat Statistik (BPS) Kabupaten Tasikmalaya.
-        Grafik di atas menunjukkan tren mingguan dalam 3 bulan terakhir. Data disajikan untuk transparansi publik, monitoring inflasi lokal,pengambilan kebijakan berbasis data serta memberikan transparansi kepada masyarakat terkait dinamika harga komoditas unggulan lokal.
+        Grafik di atas menunjukkan tren mingguan dalam 3 bulan terakhir. Data disajikan untuk transparansi publik, monitoring inflasi lokal, pengambilan kebijakan berbasis data serta memberikan transparansi kepada masyarakat terkait dinamika harga komoditas unggulan lokal.
     </p>
 </section>
 @endsection
