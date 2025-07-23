@@ -1,7 +1,9 @@
 @extends('layouts.admin')
 
+@section('title', 'Form Input IPH Mingguan')
+
 @section('content')
-    <h2 class="text-2xl font-bold mb-6">Form Input IPH Mingguan</h2>
+    <h2 class="text-2xl font-bold mb-6 text-indigo-700">Form Input IPH Mingguan</h2>
 
     @if (session('success'))
         <div class="bg-green-100 border border-green-400 text-green-800 px-4 py-3 rounded mb-6">
@@ -49,7 +51,7 @@
         {{-- Perubahan Harga --}}
         <div>
             <label class="block font-medium">Perubahan Harga (%):</label>
-            <input type="number" step="0.0001" name="perubahan_harga" required class="w-full p-2 border rounded">
+            <input type="text" name="perubahan_harga" placeholder="Contoh: 0,020202" class="w-full p-2 border rounded" required>
         </div>
 
         {{-- Fluktuasi Tertinggi --}}
@@ -63,8 +65,8 @@
             <label class="block font-medium mb-2">Komoditas dan Nilai Andil:</label>
             <div id="komoditas-wrapper" class="space-y-4">
                 <div class="grid grid-cols-2 gap-4">
-                    <input type="text" name="nama_komoditas_1" placeholder="Nama Komoditas" class="w-full p-2 border rounded">
-                    <input type="number" step="0.0001" name="nilai_andil_1" placeholder="Nilai Andil (%)" class="w-full p-2 border rounded">
+                    <input type="text" name="nama_komoditas_1" placeholder="Nama Komoditas 1" class="w-full p-2 border rounded">
+                    <input type="text" name="nilai_andil_1" placeholder="Nilai Andil 1" class="w-full p-2 border rounded">
                 </div>
             </div>
             <button type="button" onclick="tambahKomoditas()" class="mt-2 bg-green-600 text-white px-3 py-2 rounded hover:bg-green-700">
@@ -75,13 +77,13 @@
         {{-- Disparitas Harga --}}
         <div>
             <label class="block font-medium">Disparitas Harga:</label>
-            <input type="number" step="0.0001" name="disparitas_harga" class="w-full p-2 border rounded">
+            <input type="text" name="disparitas_harga" placeholder="Contoh: 0,005" class="w-full p-2 border rounded">
         </div>
 
         {{-- Nilai Fluktuasi --}}
         <div>
             <label class="block font-medium">Nilai Fluktuasi:</label>
-            <input type="number" step="0.0001" name="nilai_fluktuasi" class="w-full p-2 border rounded">
+            <input type="text" name="nilai_fluktuasi" placeholder="Contoh: -0,0102" class="w-full p-2 border rounded">
         </div>
 
         <button type="submit" class="bg-indigo-600 text-white px-5 py-3 rounded hover:bg-indigo-700">
@@ -97,8 +99,8 @@
             const row = document.createElement('div');
             row.className = 'grid grid-cols-2 gap-4';
             row.innerHTML = `
-                <input type="text" name="nama_komoditas_${index}" placeholder="Nama Komoditas" class="w-full p-2 border rounded">
-                <input type="number" step="0.0001" name="nilai_andil_${index}" placeholder="Nilai Andil (%)" class="w-full p-2 border rounded">
+                <input type="text" name="nama_komoditas_${index}" placeholder="Nama Komoditas ${index}" class="w-full p-2 border rounded">
+                <input type="text" name="nilai_andil_${index}" placeholder="Nilai Andil ${index}" class="w-full p-2 border rounded">
             `;
             wrapper.appendChild(row);
             index++;
