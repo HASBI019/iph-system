@@ -76,7 +76,7 @@
         </div>
 
         <button type="submit" class="bg-indigo-600 text-white px-5 py-3 rounded hover:bg-indigo-700">
-            Simpan Data Mingguan
+            Simpan Data Bulanan
         </button>
     </form>
 

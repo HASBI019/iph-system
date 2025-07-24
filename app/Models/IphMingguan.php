@@ -16,7 +16,6 @@ class IphMingguan extends Model
         'nama_komoditas_4', 'nilai_andil_4',
         'nama_komoditas_5', 'nilai_andil_5',
         'disparitas_harga', 'nilai_fluktuasi',
-        'created_at'
+        'waktu' // ⬅️ Tambahkan ini agar waktu tersimpan!
     ];
-
 }
