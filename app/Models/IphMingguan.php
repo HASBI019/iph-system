@@ -19,5 +19,4 @@ class IphMingguan extends Model
         'created_at'
     ];
 
-    public $timestamps = false;
 }

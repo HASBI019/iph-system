@@ -94,27 +94,39 @@ class IphController extends Controller
     // ================================
     // Tampilkan Data
     // ================================
-    public function viewMingguan(Request $request)
-    {
-        $data = IphMingguan::query()
-            ->when($request->tahun, fn($q) => $q->where('tahun', $request->tahun))
-            ->when($request->bulan, fn($q) => $q->where('bulan', $request->bulan))
-            ->orderByDesc('created_at')
-            ->get();
+   public function viewMingguan(Request $request)
+{
+    $orderBulan = ['Januari','Februari','Maret','April','Mei','Juni',
+                   'Juli','Agustus','September','Oktober','November','Desember'];
 
-        return view('admin.view_mingguan', compact('data'));
-    }
+    $data = IphMingguan::query()
+        ->when($request->tahun, fn($q) => $q->where('tahun', $request->tahun))
+        ->when($request->bulan, fn($q) => $q->where('bulan', $request->bulan))
+        ->orderBy('tahun', 'asc')
+        ->orderByRaw("FIELD(bulan, '" . implode("','", $orderBulan) . "')")
+        ->orderBy('minggu_ke', 'asc') 
+        ->get();
+
+    return view('admin.view_mingguan', compact('data'));
+}
+
 
     public function viewBulanan(Request $request)
-    {
-        $data = IphBulanan::query()
-            ->when($request->tahun, fn($q) => $q->where('tahun', $request->tahun))
-            ->when($request->bulan, fn($q) => $q->where('bulan', $request->bulan))
-            ->orderByDesc('created_at')
-            ->get();
+{
+    $orderBulan = ['Januari','Februari','Maret','April','Mei','Juni',
+                   'Juli','Agustus','September','Oktober','November','Desember'];
 
-        return view('admin.view_bulanan', compact('data'));
-    }
+    $data = IphBulanan::query()
+        ->when($request->tahun, fn($q) => $q->where('tahun', $request->tahun))
+        ->when($request->bulan, fn($q) => $q->where('bulan', $request->bulan))
+        ->orderBy('tahun', 'asc')
+        ->orderByRaw("FIELD(bulan, '" . implode("','", $orderBulan) . "') ASC") 
+        ->get();
+
+    return view('admin.view_bulanan', compact('data'));
+}
+
+
 
     // ================================
     // Hapus Data
