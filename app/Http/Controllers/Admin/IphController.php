@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\IphMingguan;
 use App\Models\IphBulanan;
+use App\Models\SiteSetting;
 
 class IphController extends Controller
 {
@@ -165,6 +166,35 @@ class IphController extends Controller
     }
 }
 
+        // ================================
+        // view tabel ke frontend
+        // ================================
+        public function beranda(Request $request)
+{
+    $orderBulan = ['Januari','Februari','Maret','April','Mei','Juni',
+                   'Juli','Agustus','September','Oktober','November','Desember'];
+
+    $bulanan = IphBulanan::query()
+        ->when($request->tahun, fn($q) => $q->where('tahun', $request->tahun))
+        ->when($request->bulan, fn($q) => $q->where('bulan', $request->bulan))
+        ->orderBy('tahun', 'asc')
+        ->orderByRaw("FIELD(bulan, '" . implode("','", $orderBulan) . "')")
+        ->get();
+
+    $mingguan = IphMingguan::query()
+        ->when($request->tahun, fn($q) => $q->where('tahun', $request->tahun))
+        ->when($request->bulan, fn($q) => $q->where('bulan', $request->bulan))
+        ->orderBy('tahun', 'asc')
+        ->orderByRaw("FIELD(bulan, '" . implode("','", $orderBulan) . "')")
+        ->orderBy('minggu_ke', 'asc')
+        ->get();
+
+    $setting = \App\Models\SiteSetting::first(); // 🛠️ Ambil logo/foto dari setting
+
+    return view('frontend.beranda', compact('bulanan', 'mingguan', 'setting'));
+}
+
+
 
     // ================================
     // Helper: Validasi Mingguan
@@ -217,3 +247,5 @@ class IphController extends Controller
         ];
     }
 }
+
+        

@@ -70,3 +70,4 @@ Route::middleware('auth')->group(function () {
 |--------------------------------------------------------------------------
 */
 Route::get('/', [BerandaController::class, 'index'])->name('beranda');
+Route::get('/iph', [IphController::class, 'beranda'])->name('iph.beranda');
