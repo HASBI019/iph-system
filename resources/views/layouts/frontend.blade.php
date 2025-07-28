@@ -4,48 +4,44 @@
 
 <!DOCTYPE html>
 <html lang="id">
+
 <head>
     <meta charset="UTF-8">
-    <title>IPH Publik</title>
+    <title>@yield('title', 'IPH Publik')</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    
-    <!-- TailwindCSS -->
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
-    
-    <!-- Alpine.js (WAJIB untuk interaktif dropdown) -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="https://unpkg.com/alpinejs" defer></script>
 
-    <!-- Prevent flash saat Alpine belum aktif -->
     <style>[x-cloak] { display: none !important; }</style>
+    @stack('script')
 </head>
 <body class="bg-gray-50 text-gray-800">
 
 <!-- NAVBAR -->
 <header class="bg-blue-900 text-white sticky top-0 z-50 shadow">
-    <div class="w-full px-4 md:px-8 xl:px-16 py-1.5 flex flex-col md:flex-row items-center justify-between gap-4">
+    <div class="w-full px-4 md:px-8 xl:px-16 py-3 flex flex-col md:flex-row items-center justify-between gap-4">
         <div class="flex items-center gap-4">
-            <img src="{{ asset('storage/' . ($setting->logo ?? 'images/logo-bps.png')) }}" class="h-10">
+            <img src="{{ asset('storage/' . ($setting->logo ?? 'images/logo-bps.png')) }}" class="h-12">
 
             <div>
-              <h1 class="text-base md:text-lg font-semibold italic uppercase leading-snug tracking-wide">
-    {{ $setting->judul ?? 'BADAN PUSAT STATISTIK' }}
-</h1>
-<span class="text-sm md:text-base font-medium italic uppercase tracking-wide">
-    {{ $setting->subjudul ?? 'KABUPATEN TASIKMALAYA' }}
-</span>
-
+                <h1 class="text-xl md:text-2xl font-bold italic uppercase leading-tight tracking-wide">
+                    {{ $setting->judul ?? 'BADAN PUSAT STATISTIK' }}
+                </h1>
+                <span class="text-lg md:text-xl font-bold italic uppercase tracking-wide">
+                    {{ $setting->subjudul ?? 'KABUPATEN TASIKMALAYA' }}
+                </span>
             </div>
         </div>
-        <!-- 👇 Navigasi dengan Alpine Dropdown -->
-        <!-- 👇 Navigasi dengan Alpine Dropdown (SUDAH DIPERBAIKI) -->
-<nav class="flex flex-wrap gap-3 text-sm md:text-base font-medium uppercase">
-    <a href="{{ route('beranda') }}" class="px-3 py-2 text-sm md:text-base font-medium hover:underline">Beranda</a>
+<nav class="flex flex-wrap gap-4 md:gap-6 text-sm md:text-base font-semibold uppercase">
+    <a href="{{ route('beranda') }}" class="hover:underline">Beranda</a>
+
     <!-- Dropdown Informasi Publik -->
     <div class="relative" x-data="{ openDropdown: false }">
         <button @click="openDropdown = !openDropdown"
-        class="px-3 py-2 text-sm md:text-base font-medium hover:underline flex items-center gap-1 focus:outline-none">
-    Informasi Publik <span class="text-xs">▾</span>
-</button>
+                class="hover:underline flex items-center gap-1 focus:outline-none">
+            Informasi Publik <span class="text-xs">▾</span>
+        </button>
 
         <div x-show="openDropdown"
              x-cloak
@@ -70,7 +66,7 @@
         </div>
     </div>
 
-    <a href="{{ route('grafik') }}" class="px-3 py-2 text-sm md:text-base font-medium hover:underline">Grafik</a>
+    <a href="{{ route('grafik') }}" class="hover:underline">Grafik</a>
 </nav>
 
     </div>
