@@ -6,6 +6,7 @@ use App\Http\Controllers\Admin\IphController;
 use App\Http\Controllers\ExportController;
 use App\Http\Controllers\Admin\SiteSettingController;
 use App\Http\Controllers\Frontend\BerandaController;
+use App\Http\Controllers\GrafikController;
 
 /*
 |--------------------------------------------------------------------------
@@ -71,3 +72,4 @@ Route::middleware('auth')->group(function () {
 */
 Route::get('/', [BerandaController::class, 'index'])->name('beranda');
 Route::get('/iph', [IphController::class, 'beranda'])->name('iph.beranda');
+Route::get('/grafik', [GrafikController::class, 'index'])->name('grafik');

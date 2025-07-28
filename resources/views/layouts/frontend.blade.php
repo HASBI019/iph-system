@@ -4,32 +4,75 @@
 
 <!DOCTYPE html>
 <html lang="id">
-
 <head>
     <meta charset="UTF-8">
-    <title>@yield('title', 'IPH Publik')</title>
+    <title>IPH Publik</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <!-- TailwindCSS -->
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    @stack('script')
+    
+    <!-- Alpine.js (WAJIB untuk interaktif dropdown) -->
+    <script src="https://unpkg.com/alpinejs" defer></script>
+
+    <!-- Prevent flash saat Alpine belum aktif -->
+    <style>[x-cloak] { display: none !important; }</style>
 </head>
 <body class="bg-gray-50 text-gray-800">
 
 <!-- NAVBAR -->
-<header class="bg-blue-900 text-white">
-    <div class="w-full px-6 md:px-12 xl:px-24 py-5 flex items-center justify-between">
+<header class="bg-blue-900 text-white sticky top-0 z-50 shadow">
+    <div class="w-full px-4 md:px-8 xl:px-16 py-1.5 flex flex-col md:flex-row items-center justify-between gap-4">
         <div class="flex items-center gap-4">
-            <img src="{{ asset('storage/' . ($setting->logo ?? 'images/logo-bps.png')) }}" class="h-12">
+            <img src="{{ asset('storage/' . ($setting->logo ?? 'images/logo-bps.png')) }}" class="h-10">
 
             <div>
-                <h1 class="text-xl md:text-2xl font-bold italic uppercase leading-tight tracking-wide">
-                    {{ $setting->judul ?? 'BADAN PUSAT STATISTIK' }}
-                </h1>
-                <span class="text-lg md:text-xl font-bold italic uppercase tracking-wide">
-                    {{ $setting->subjudul ?? 'KABUPATEN TASIKMALAYA' }}
-                </span>
+              <h1 class="text-base md:text-lg font-semibold italic uppercase leading-snug tracking-wide">
+    {{ $setting->judul ?? 'BADAN PUSAT STATISTIK' }}
+</h1>
+<span class="text-sm md:text-base font-medium italic uppercase tracking-wide">
+    {{ $setting->subjudul ?? 'KABUPATEN TASIKMALAYA' }}
+</span>
+
             </div>
         </div>
+        <!-- 👇 Navigasi dengan Alpine Dropdown -->
+        <!-- 👇 Navigasi dengan Alpine Dropdown (SUDAH DIPERBAIKI) -->
+<nav class="flex flex-wrap gap-3 text-sm md:text-base font-medium uppercase">
+    <a href="{{ route('beranda') }}" class="px-3 py-2 text-sm md:text-base font-medium hover:underline">Beranda</a>
+    <!-- Dropdown Informasi Publik -->
+    <div class="relative" x-data="{ openDropdown: false }">
+        <button @click="openDropdown = !openDropdown"
+        class="px-3 py-2 text-sm md:text-base font-medium hover:underline flex items-center gap-1 focus:outline-none">
+    Informasi Publik <span class="text-xs">▾</span>
+</button>
+
+        <div x-show="openDropdown"
+             x-cloak
+             @click.away="openDropdown = false"
+             x-transition:enter="transition ease-out duration-200"
+             x-transition:enter-start="opacity-0 scale-95"
+             x-transition:enter-end="opacity-100 scale-100"
+             x-transition:leave="transition ease-in duration-150"
+             x-transition:leave-start="opacity-100 scale-100"
+             x-transition:leave-end="opacity-0 scale-95"
+             class="absolute bg-white text-blue-900 rounded shadow-lg mt-2 z-50 w-56">
+            <a href="https://ppid.bps.go.id/app/konten/3206/Profil-BPS.html"
+               class="block px-4 py-2 hover:bg-blue-100">Tentang Kami</a>
+            <a href="https://ppid.bps.go.id/?mfd=3206"
+               class="block px-4 py-2 hover:bg-blue-100">PPID</a>
+            <a href="https://ppid.bps.go.id/app/konten/0000/Layanan-BPS.html#pills-3"
+               class="block px-4 py-2 hover:bg-blue-100">Kebijakan Diseminasi</a>
+            <a href="https://bps.go.id/informasi-layanan.html"
+               class="block px-4 py-2 hover:bg-blue-100">Informasi Layanan</a>
+            <a href="https://bps.go.id/pengaduan.html"
+               class="block px-4 py-2 hover:bg-blue-100">Pengaduan</a>
+        </div>
+    </div>
+
+    <a href="{{ route('grafik') }}" class="px-3 py-2 text-sm md:text-base font-medium hover:underline">Grafik</a>
+</nav>
+
     </div>
 </header>
 
