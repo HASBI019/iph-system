@@ -24,16 +24,24 @@ Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 */
 Route::middleware('auth')->group(function () {
 
-    // 🔧 Admin Dashboard & Settings
+    /*
+    |--------------------------------------------------------------------------
+    | ⚙️ Admin Dashboard & Settings
+    |--------------------------------------------------------------------------
+    */
     Route::prefix('admin')->group(function () {
         Route::get('/dashboard', fn () => view('admin.dashboard'))->name('admin.dashboard');
 
-        // ⚙️ Pengaturan Publik
+        // Pengaturan Tampilan Publik
         Route::get('/setting', [SiteSettingController::class, 'edit'])->name('admin.setting.edit');
         Route::post('/setting', [SiteSettingController::class, 'update'])->name('admin.setting.update');
     });
 
-    // 📊 IPH System Routes
+    /*
+    |--------------------------------------------------------------------------
+    | 📊 IPH System Routes
+    |--------------------------------------------------------------------------
+    */
     Route::prefix('admin/iph')->group(function () {
 
         // 📝 Input Form

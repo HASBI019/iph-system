@@ -6,11 +6,19 @@ use Illuminate\Database\Eloquent\Model;
 
 class SiteSetting extends Model
 {
-    // app/Models/SiteSetting.php
-protected $fillable = [
-    'judul', 'subjudul', 'logo', 'logo_berakhlak', 'logo_iph',
-    'alamat', 'telepon', 'email', 'tahukah_kamu'
-];
+    protected $table = 'site_settings';
+
+    protected $fillable = [
+        'judul',
+        'subjudul',
+        'alamat',
+        'telepon',
+        'email',
+        'tahukah_kamu',
+        'deskripsi_iph',
+        'logo',
+        'logo_berakhlak',
+        'logo_iph',
+    ];
 }
-    //
 

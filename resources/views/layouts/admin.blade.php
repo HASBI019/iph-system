@@ -4,7 +4,12 @@
     <meta charset="UTF-8">
     <title>@yield('title', 'Admin IPH')</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    {{-- Tailwind CDN --}}
     <script src="https://cdn.tailwindcss.com"></script>
+
+    {{-- Slot untuk tambahan style jika dibutuhkan --}}
+    @yield('styles')
 </head>
 <body class="bg-gray-100 text-gray-800">
 
@@ -61,5 +66,10 @@
     </main>
 
 </div>
+
+{{-- Slot untuk script tambahan seperti CKEditor --}}
+<p style="color:green;">LAYOUT AKTIF</p>
+@stack('script')
+
 </body>
 </html>

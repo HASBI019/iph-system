@@ -1,11 +1,58 @@
-@import 'tailwindcss';
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
-@source '../../vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php';
-@source '../../storage/framework/views/*.php';
-@source '../**/*.blade.php';
-@source '../**/*.js';
+/* --- Custom Pagination untuk DataTables --- */
+.dataTables_wrapper .dataTables_paginate .paginate_button {
+  @apply px-3 py-1.5 mx-1 border rounded text-sm text-blue-900 bg-white hover:bg-blue-100 transition;
+}
+.dataTables_wrapper .dataTables_paginate .paginate_button.current {
+  @apply bg-blue-700 text-white font-semibold border-blue-700;
+}
+.dataTables_wrapper .dataTables_paginate {
+  @apply mt-4 flex items-center gap-2;
+}
 
-@theme {
-    --font-sans: 'Instrument Sans', ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji',
-        'Segoe UI Symbol', 'Noto Color Emoji';
+/* --- Info Bar: "Menampilkan 1 sampai 5 dari 12 entri" --- */
+.dataTables_wrapper .dataTables_info {
+  @apply text-sm text-gray-500 mt-3;
+}
+
+/* --- Search Box & Show Entries Dropdown --- */
+.dataTables_wrapper .dataTables_length select,
+.dataTables_wrapper .dataTables_filter input {
+  @apply border border-gray-300 rounded px-3 py-1.5 text-sm focus:outline-none focus:ring-2 focus:ring-blue-400;
+}
+
+/* --- Wrapper Layout Custom (pakai dom: "") --- */
+.dt-custom-wrapper {
+  @apply flex flex-wrap justify-between items-center gap-4 mb-4;
+}
+.dt-footer-wrapper {
+  @apply flex justify-between items-center mt-4;
+}
+
+/* --- Table Styling --- */
+table.dataTable {
+  @apply w-full text-sm border-collapse;
+}
+table.dataTable th {
+  @apply bg-blue-50 text-left font-medium text-gray-700 px-4 py-2 border-b;
+}
+table.dataTable td {
+  @apply px-4 py-2 border-b text-gray-800;
+}
+
+/* --- Hover Row Table --- */
+table.dataTable tbody tr:hover {
+  @apply bg-blue-50 transition;
+}
+.dataTables_wrapper .dataTables_paginate .paginate_button {
+  @apply px-3 py-1.5 mx-1 border rounded text-sm text-blue-900 bg-white hover:bg-blue-100 transition;
+}
+.dataTables_wrapper .dataTables_paginate .paginate_button.current {
+  @apply bg-blue-700 text-white font-semibold border-blue-700;
+}
+.dataTables_wrapper .dataTables_paginate {
+  @apply mt-4 flex items-center gap-2;
 }

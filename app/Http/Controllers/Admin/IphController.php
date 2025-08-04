@@ -12,9 +12,7 @@ use Maatwebsite\Excel\Facades\Excel;
 
 class IphController extends Controller
 {
-    // ================================
     // Form Input
-    // ================================
     public function inputMingguan()
     {
         return view('admin.form_mingguan');
@@ -25,38 +23,41 @@ class IphController extends Controller
         return view('admin.form_bulanan');
     }
 
-    // ================================
     // Simpan Data
-    // ================================
-    public function saveMingguan(Request $request)
-    {
-        $raw = $request->all();
-        $this->parseDecimalFields($raw);
+   public function saveMingguan(Request $request)
+{
+    $raw = $request->all();
+    $this->parseDecimalFields($raw);
+    $data = validator($raw, $this->rulesMingguan())->validate();
+    $data['status_harga'] = $this->statusHarga($data['perubahan_harga']);
+    $data['waktu'] = now();
+    IphMingguan::updateOrCreate([
+        'tahun' => $data['tahun'],
+        'bulan' => $data['bulan'],
+        'minggu_ke' => $data['minggu_ke'],
+    ], $data);
 
-        $data = validator($raw, $this->rulesMingguan())->validate();
-        $data['status_harga'] = $this->statusHarga($data['perubahan_harga']);
-        $data['waktu'] = now();
-        IphMingguan::create($data);
+    return redirect()->back()->with('success', 'Data IPH Mingguan berhasil disimpan.');
+}
 
-        return redirect()->back()->with('success', 'Data IPH Mingguan berhasil disimpan.');
-    }
 
-    public function saveBulanan(Request $request)
-    {
-        $raw = $request->all();
-        $this->parseDecimalFields($raw);
+  public function saveBulanan(Request $request)
+{
 
-        $data = validator($raw, $this->rulesBulanan())->validate();
-        $data['status_harga'] = $this->statusHarga($data['perubahan_harga']);
-        $data['waktu'] = now();
-        IphBulanan::create($data);
+    $raw = $request->all();
+    $this->parseDecimalFields($raw);
+    $data = validator($raw, $this->rulesBulanan())->validate();
+    $data['status_harga'] = $this->statusHarga($data['perubahan_harga']);
+    $data['waktu'] = now();
 
-        return redirect()->back()->with('success', 'Data IPH Bulanan berhasil disimpan.');
-    }
+    IphBulanan::updateOrCreate([
+        'tahun' => $data['tahun'],
+        'bulan' => $data['bulan'],
+    ], $data);
 
-    // ================================
+    return redirect()->back()->with('success', 'Data IPH Bulanan berhasil disimpan.');
+}
     // Edit Data
-    // ================================
     public function editMingguan($id)
     {
         $data = IphMingguan::findOrFail($id);
@@ -69,9 +70,7 @@ class IphController extends Controller
         return view('admin.edit_bulanan', compact('data'));
     }
 
-    // ================================
     // Update Data
-    // ================================
     public function updateMingguan(Request $request, $id)
     {
         $raw = $request->all();
@@ -96,9 +95,8 @@ class IphController extends Controller
         return redirect()->route('iph-bulanan.index')->with('success', 'Data IPH Bulanan berhasil diperbarui.');
     }
 
-    // ================================
+
     // Tampilkan Data
-    // ================================
     public function viewMingguan(Request $request)
     {
         $orderBulan = ['Januari','Februari','Maret','April','Mei','Juni','Juli','Agustus',
@@ -130,9 +128,7 @@ class IphController extends Controller
         return view('admin.view_bulanan', compact('data'));
     }
 
-    // ================================
     // Hapus Data
-    // ================================
     public function deleteMingguan($id)
     {
         IphMingguan::destroy($id);
@@ -144,10 +140,7 @@ class IphController extends Controller
         IphBulanan::destroy($id);
         return redirect()->back()->with('success', 'Data IPH Bulanan berhasil dihapus.');
     }
-
-    // ================================
     // Tampilan Frontend IPH
-    // ================================
     public function beranda(Request $request)
     {
         $orderBulan = ['Januari','Februari','Maret','April','Mei','Juni','Juli','Agustus',
@@ -172,10 +165,7 @@ class IphController extends Controller
 
         return view('frontend.beranda', compact('bulanan', 'mingguan', 'setting'));
     }
-
-    // ================================
     // Export Excel: Bulanan
-    // ================================
     public function exportBulanan()
     {
         $data = IphBulanan::all()->map(function ($item) {
@@ -204,10 +194,7 @@ class IphController extends Controller
 
         return Excel::download(new ArrayExport($data, $headings), 'IPH_Bulanan.xlsx');
     }
-
-    // ================================
     // Export Excel: Mingguan
-    // ================================
     public function exportMingguan()
 {
     $data = IphMingguan::all()->map(function ($item) {
@@ -247,9 +234,7 @@ private function formatPresisi($value, $digit = 2)
         : '-';
 }
 
-// ================================
 // Helper: Validasi Mingguan
-// ================================
 private function rulesMingguan()
 {
     return [
@@ -272,10 +257,7 @@ private function rulesMingguan()
         'nilai_fluktuasi' => 'nullable|numeric',
     ];
 }
-
-// ================================
 // Helper: Validasi Bulanan
-// ================================
 private function rulesBulanan()
 {
     return [
@@ -297,10 +279,7 @@ private function rulesBulanan()
         'nilai_fluktuasi' => 'nullable|numeric',
     ];
 }
-
-// ================================
 // Helper: Parsing angka dari input
-// ================================
 private function parseDecimalFields(&$data)
 {
     foreach ($data as $key => $value) {
@@ -311,10 +290,7 @@ private function parseDecimalFields(&$data)
         }
     }
 }
-
-// ================================
 // Helper: Status Harga Otomatis
-// ================================
 private function statusHarga($value)
 {
     return $value > 0 ? 'Naik' : ($value < 0 ? 'Turun' : 'Stabil');
