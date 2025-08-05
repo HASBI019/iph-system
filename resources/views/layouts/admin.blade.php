@@ -8,68 +8,71 @@
     {{-- Tailwind CDN --}}
     <script src="https://cdn.tailwindcss.com"></script>
 
-    {{-- Slot untuk tambahan style jika dibutuhkan --}}
+    {{-- Tambahan style jika dibutuhkan --}}
     @yield('styles')
 </head>
 <body class="bg-gray-100 text-gray-800">
 
-<div class="min-h-screen flex">
+    {{-- Wrapper Layout --}}
+    <div class="flex min-h-screen">
 
-    <!-- SIDEBAR FULL MENU -->
-    <aside class="w-64 bg-blue-800 text-white flex flex-col py-6 px-4 shadow-lg">
+        <!-- SIDEBAR FIXED -->
+        <aside class="fixed top-0 left-0 h-screen w-64 bg-blue-900 text-white flex flex-col py-6 px-4 shadow-lg z-50">
 
-        <div class="mb-6 text-center">
-            <h1 class="text-2xl font-bold">IPH Admin</h1>
-            <p class="text-sm">BPS Tasikmalaya</p>
-        </div>
+            <!-- Branding -->
+            <div class="mb-6 text-center">
+                <h1 class="text-2xl font-bold tracking-wide">IPH Admin</h1>
+                <p class="text-sm text-blue-200">BPS Tasikmalaya</p>
+            </div>
 
-        <nav class="space-y-3 text-lg font-semibold">
-            <a href="/admin/dashboard"
-               class="block px-3 py-2 rounded hover:bg-blue-700 {{ request()->is('admin/dashboard') ? 'bg-blue-700' : '' }}">
-               🏠 Dashboard
-            </a>
-            <a href="/admin/iph/mingguan"
-               class="block px-3 py-2 rounded hover:bg-blue-700 {{ request()->is('admin/iph/mingguan') ? 'bg-blue-700' : '' }}">
-               📥 Input Mingguan
-            </a>
-            <a href="/admin/iph/view-mingguan"
-               class="block px-3 py-2 rounded hover:bg-blue-700 {{ request()->is('admin/iph/view-mingguan') ? 'bg-blue-700' : '' }}">
-               📄 View Mingguan
-            </a>
-            <a href="/admin/iph/bulanan"
-               class="block px-3 py-2 rounded hover:bg-blue-700 {{ request()->is('admin/iph/bulanan') ? 'bg-blue-700' : '' }}">
-               📥 Input Bulanan
-            </a>
-            <a href="/admin/iph/view-bulanan"
-               class="block px-3 py-2 rounded hover:bg-blue-700 {{ request()->is('admin/iph/view-bulanan') ? 'bg-blue-700' : '' }}">
-               📄 View Bulanan
-            </a>
-            <a href="/admin/setting"
-               class="block px-3 py-2 rounded hover:bg-blue-700 {{ request()->is('admin/setting') ? 'bg-blue-700' : '' }}">
-               ⚙️ Pengaturan Tampilan
-            </a>
-        </nav>
+            <!-- Navigation Menu -->
+            <nav class="space-y-2 text-[15px] font-medium">
+                <a href="/admin/dashboard"
+                   class="block px-4 py-2 rounded hover:bg-blue-800 transition {{ request()->is('admin/dashboard') ? 'bg-blue-800' : '' }}">
+                   🏠 Dashboard
+                </a>
+                <a href="/admin/iph/mingguan"
+                   class="block px-4 py-2 rounded hover:bg-blue-800 transition {{ request()->is('admin/iph/mingguan') ? 'bg-blue-800' : '' }}">
+                   📥 Input Mingguan
+                </a>
+                <a href="/admin/iph/view-mingguan"
+                   class="block px-4 py-2 rounded hover:bg-blue-800 transition {{ request()->is('admin/iph/view-mingguan') ? 'bg-blue-800' : '' }}">
+                   📄 View Mingguan
+                </a>
+                <a href="/admin/iph/bulanan"
+                   class="block px-4 py-2 rounded hover:bg-blue-800 transition {{ request()->is('admin/iph/bulanan') ? 'bg-blue-800' : '' }}">
+                   📥 Input Bulanan
+                </a>
+                <a href="/admin/iph/view-bulanan"
+                   class="block px-4 py-2 rounded hover:bg-blue-800 transition {{ request()->is('admin/iph/view-bulanan') ? 'bg-blue-800' : '' }}">
+                   📄 View Bulanan
+                </a>
+                <a href="/admin/setting"
+                   class="block px-4 py-2 rounded hover:bg-blue-800 transition {{ request()->is('admin/setting') ? 'bg-blue-800' : '' }}">
+                   ⚙️ Pengaturan Tampilan
+                </a>
+            </nav>
 
-        <div class="mt-auto pt-6 border-t border-white/30">
-            <form method="POST" action="/logout">
-                @csrf
-                <button class="w-full text-left px-3 py-2 rounded bg-red-600 hover:bg-red-700">
-                    🔒 Logout
-                </button>
-            </form>
-        </div>
-    </aside>
+            <!-- Logout -->
+            <div class="mt-auto pt-6 border-t border-white/20">
+                <form method="POST" action="/logout">
+                    @csrf
+                    <button class="w-full text-left px-4 py-2 rounded bg-red-600 hover:bg-red-700 transition">
+                        🔒 Logout
+                    </button>
+                </form>
+            </div>
+        </aside>
 
-    <!-- MAIN CONTENT -->
-    <main class="flex-1 p-6 overflow-y-auto">
-        @yield('content')
-    </main>
+        <!-- MAIN CONTENT -->
+        <main class="ml-64 flex-1 overflow-y-auto p-6">
+            {{-- Navbar atau breadcrumb bisa ditambahkan di sini --}}
+            @yield('content')
+        </main>
 
-</div>
+    </div>
 
-{{-- Slot untuk script tambahan seperti CKEditor --}}
-<p style="color:green;">LAYOUT AKTIF</p>
-@stack('script')
+    @stack('script')
 
 </body>
 </html>

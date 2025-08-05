@@ -105,13 +105,6 @@
                       placeholder="Indeks Perubahan Harga (IPH) adalah...">{{ old('deskripsi_iph', $setting->deskripsi_iph) }}</textarea>
         </div>
 
-        {{-- 💡 Tahukah Kamu --}}
-        <div>
-            <label class="block font-semibold mb-1 text-gray-700">Tahukah Kamu (optional)</label>
-            <textarea name="tahukah_kamu" rows="3"
-                      class="w-full border rounded px-3 py-2 focus:ring focus:border-blue-300"
-                      placeholder="Grand Hotel Preanger is one of the oldest hotels in Bandung.">{{ old('tahukah_kamu', $setting->tahukah_kamu) }}</textarea>
-        </div>
 
         {{-- 💾 Submit --}}
         <div class="pt-4">

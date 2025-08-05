@@ -7,7 +7,7 @@
 @section('title', 'Beranda IPH')
 
 @section('content')
-<section class="w-full px-4 md:px-12 xl:px-20 py-8 scale-[0.75] origin-top">
+<section class="w-full px-4 md:px-12 xl:px-20 py-8 scale-[0.50] origin-top">
     {{-- ℹ️ Tentang IPH --}}
     @isset($setting)
     <div class="w-full mb-6">
@@ -152,8 +152,16 @@
       dom: '<"flex flex-wrap justify-between items-center gap-4 mb-4"lf>rt<"flex justify-between items-center mt-4"ip>'
     };
 
-    $('#tabelBulanan').DataTable(options);
-    $('#tabelMingguan').DataTable(options);
+$('#tabelBulanan').DataTable({
+  ...options,
+  order: [] 
+});
+
+$('#tabelMingguan').DataTable({
+  ...options,
+  order: []
+});
+
 
     // Aktifkan tab default saat halaman pertama kali dibuka
     const defaultTab = document.querySelector('.tablink');
