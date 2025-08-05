@@ -7,7 +7,8 @@
 @section('title', 'Beranda IPH')
 
 @section('content')
-<section class="w-full px-4 md:px-12 xl:px-20 py-8 scale-[0.50] origin-top">
+
+<section class="max-w-5xl mx-auto px-4 md:px-6 xl:px-8 py-8 space-y-8">
     {{-- ℹ️ Tentang IPH --}}
     @isset($setting)
     <div class="w-full mb-6">
@@ -46,38 +47,38 @@
    {{-- 📊 Tabel Bulanan --}}
 <div id="bulanan" class="tab-content">
     <div class="w-full overflow-x-auto border rounded bg-white p-4 shadow-sm">
-        <table id="tabelBulanan" class="w-max min-w-[800px] text-xs table-auto">
+        <table id="tabelBulanan" class="min-w-full text-xs table-auto">
             <thead class="bg-indigo-700 text-white">
                 <tr>
                     <th class="px-2 py-2 text-left">Tahun</th>
                     <th class="px-2 py-2 text-left">Bulan</th>
                     <th class="px-2 py-2 text-left">Perubahan</th>
                     <th class="px-2 py-2 text-left">Status</th>
-                    <th class="px-2 py-2 text-left">Fluktuasi</th>
-                    <th class="px-2 py-2 text-left">Komoditas & Andil</th>
+                    <th class="px-2 py-2 text-left whitespace-nowrap w-32">Fluktuasi</th>
+                    <th class="px-2 py-2 text-left whitespace-nowrap">Komoditas & Andil</th>
                     <th class="px-2 py-2 text-left">Disparitas</th>
-                    <th class="px-2 py-2 text-left">Fluktuasi (%)</th>
+                    <th class="px-2 py-2 text-left">Nilai fluktuasi</th>
                 </tr>
             </thead>
             <tbody>
                 @foreach ($bulanan as $item)
-                <tr class="border-t hover:bg-indigo-50">
-                    <td class="px-2 py-2">{{ $item->tahun }}</td>
-                    <td class="px-2 py-2">{{ $item->bulan }}</td>
-                    <td class="px-2 py-2">{{ formatPresisi($item->perubahan_harga) }}</td>
-                    <td class="px-2 py-2">{{ $item->status_harga }}</td>
-                    <td class="px-2 py-2">{{ $item->fluktuasi_tertinggi ?? '-' }}</td>
-                    <td class="px-2 py-2 break-words whitespace-normal">
-                        <ul class="list-disc pl-4 space-y-1">
+                <tr class="border-t hover:bg-indigo-50 align-top">
+                    <td class="px-2 py-2 align-top">{{ $item->tahun }}</td>
+                    <td class="px-2 py-2 align-top">{{ $item->bulan }}</td>
+                    <td class="px-2 py-2 align-top">{{ formatPresisi($item->perubahan_harga) }}</td>
+                    <td class="px-2 py-2 align-top">{{ $item->status_harga }}</td>
+                    <td class="px-2 py-2 align-top w-32">{{ $item->fluktuasi_tertinggi ?? '-' }}</td>
+                    <td class="px-2 py-2 align-top whitespace-normal">
+                        <div class="space-y-1 text-sm pl-2">
                             @for ($i = 1; $i <= 5; $i++)
-                                @if ($item["nama_komoditas_$i"])
-                                    <li>{{ $item["nama_komoditas_$i"] }} ({{ formatPresisi($item["nilai_andil_$i"]) }})</li>
+                                @if (!empty($item["nama_komoditas_$i"]))
+                                    <div>• {{ $item["nama_komoditas_$i"] }} ({{ formatPresisi($item["nilai_andil_$i"]) }})</div>
                                 @endif
                             @endfor
-                        </ul>
+                        </div>
                     </td>
-                    <td class="px-2 py-2">{{ formatPresisi($item->disparitas_harga) }}</td>
-                    <td class="px-2 py-2">{{ formatPresisi($item->nilai_fluktuasi) }}</td>
+                    <td class="px-2 py-2 align-top">{{ formatPresisi($item->disparitas_harga) }}</td>
+                    <td class="px-2 py-2 align-top">{{ formatPresisi($item->nilai_fluktuasi) }}</td>
                 </tr>
                 @endforeach
             </tbody>
@@ -85,49 +86,50 @@
     </div>
 </div>
 
-    {{-- 📊 Tabel Mingguan --}}
-    <div id="mingguan" class="tab-content hidden">
-        <div class="w-full overflow-x-auto border rounded bg-white p-4 shadow-sm">
-            <table id="tabelMingguan" class="w-max min-w-[800px] text-xs table-auto">
-                <thead class="bg-indigo-700 text-white">
-                    <tr>
-                        <th>Tahun</th>
-                        <th>Bulan</th>
-                        <th>Minggu</th>
-                        <th>Perubahan</th>
-                        <th>Status</th>
-                        <th>Fluktuasi</th>
-                        <th>Komoditas & Andil</th>
-                        <th>Disparitas</th>
-                        <th>Nilai Fluktuasi</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach ($mingguan as $item)
-                    <tr class="border-t hover:bg-indigo-50">
-                        <td>{{ $item->tahun }}</td>
-                        <td>{{ $item->bulan }}</td>
-                        <td>{{ $item->minggu_ke }}</td>
-                        <td>{{ formatPresisi($item->perubahan_harga) }}</td>
-                        <td>{{ $item->status_harga }}</td>
-                        <td>{{ $item->fluktuasi_tertinggi ?? '-' }}</td>
-                        <td>
-                            <ul class="list-disc pl-4 space-y-1">
-                                @for ($i = 1; $i <= 5; $i++)
-                                    @if ($item["nama_komoditas_$i"])
-                                        <li>{{ $item["nama_komoditas_$i"] }} ({{ formatPresisi($item["nilai_andil_$i"]) }})</li>
-                                    @endif
-                                @endfor
-                            </ul>
-                        </td>
-                        <td>{{ formatPresisi($item->disparitas_harga) }}</td>
-                        <td>{{ formatPresisi($item->nilai_fluktuasi) }}</td>
-                    </tr>
-                    @endforeach
-                </tbody>
-            </table>
-        </div>
+   {{-- 📊 Tabel Mingguan --}}
+<div id="mingguan" class="tab-content hidden">
+    <div class="w-full overflow-x-auto border rounded bg-white p-4 shadow-sm">
+        <table id="tabelMingguan" class="min-w-full text-xs table-auto">
+            <thead class="bg-indigo-700 text-white">
+                <tr>
+                    <th class="px-2 py-2 text-left">Tahun</th>
+                    <th class="px-2 py-2 text-left">Bulan</th>
+                    <th class="px-2 py-2 text-left">Minggu</th>
+                    <th class="px-2 py-2 text-left">Perubahan</th>
+                    <th class="px-2 py-2 text-left">Status</th>
+                    <th class="px-2 py-2 text-left whitespace-nowrap w-32">Fluktuasi</th>
+                    <th class="px-2 py-2 text-left whitespace-nowrap">Komoditas & Andil</th>
+                    <th class="px-2 py-2 text-left">Disparitas</th>
+                    <th class="px-2 py-2 text-left">Nilai Fluktuasi</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach ($mingguan as $item)
+                <tr class="border-t hover:bg-indigo-50 align-top">
+                    <td class="px-2 py-2 align-top">{{ $item->tahun }}</td>
+                    <td class="px-2 py-2 align-top">{{ $item->bulan }}</td>
+                    <td class="px-2 py-2 align-top">{{ $item->minggu_ke }}</td>
+                    <td class="px-2 py-2 align-top">{{ formatPresisi($item->perubahan_harga) }}</td>
+                    <td class="px-2 py-2 align-top">{{ $item->status_harga }}</td>
+                    <td class="px-2 py-2 align-top w-32">{{ $item->fluktuasi_tertinggi ?? '-' }}</td>
+                    <td class="px-2 py-2 align-top whitespace-normal">
+                        <div class="space-y-1 text-sm pl-2">
+                            @for ($i = 1; $i <= 5; $i++)
+                                @if (!empty($item["nama_komoditas_$i"]))
+                                    <div>• {{ $item["nama_komoditas_$i"] }} ({{ formatPresisi($item["nilai_andil_$i"]) }})</div>
+                                @endif
+                            @endfor
+                        </div>
+                    </td>
+                    <td class="px-2 py-2 align-top">{{ formatPresisi($item->disparitas_harga) }}</td>
+                    <td class="px-2 py-2 align-top">{{ formatPresisi($item->nilai_fluktuasi) }}</td>
+                </tr>
+                @endforeach
+            </tbody>
+        </table>
     </div>
+</div>
+
 </section>
 @endsection
 
@@ -143,8 +145,8 @@
       language: {
         url: '//cdn.datatables.net/plug-ins/1.13.6/i18n/id.json',
         paginate: {
-          previous: "← Prev",
-          next: "Next →"
+          previous: "Prev",
+          next: "Next"
         },
         search: "Cari:",
         info: "Menampilkan _START_ sampai _END_ dari _TOTAL_ entri"
@@ -162,8 +164,6 @@ $('#tabelMingguan').DataTable({
   order: []
 });
 
-
-    // Aktifkan tab default saat halaman pertama kali dibuka
     const defaultTab = document.querySelector('.tablink');
     if (defaultTab) {
       showTab({ currentTarget: defaultTab }, 'bulanan');
@@ -171,18 +171,16 @@ $('#tabelMingguan').DataTable({
   });
 
   function showTab(evt, id) {
-    // Sembunyikan semua tab
+
     document.querySelectorAll('.tab-content').forEach(tab => tab.classList.add('hidden'));
 
     // Tampilkan tab yang dipilih
     document.getElementById(id).classList.remove('hidden');
 
-    // Reset semua tablink
     document.querySelectorAll('.tablink').forEach(btn => {
       btn.classList.remove('border-indigo-600', 'text-indigo-700');
     });
 
-    // Aktifkan tablink yang diklik
     evt.currentTarget.classList.add('border-indigo-600', 'text-indigo-700');
   }
 </script>
