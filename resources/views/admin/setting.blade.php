@@ -105,6 +105,15 @@
                       placeholder="Indeks Perubahan Harga (IPH) adalah...">{{ old('deskripsi_iph', $setting->deskripsi_iph) }}</textarea>
         </div>
 
+        {{-- 📷 Upload Foto IPH --}}
+        <div>
+            <label class="block font-semibold mb-1 text-gray-700">Ganti Foto IPH</label>
+            @if($setting->foto_iph)
+                <img src="{{ asset('storage/' . $setting->foto_iph) }}" class="h-32 mb-3 rounded shadow">
+            @endif
+            <input type="file" name="foto_iph"
+                   class="w-full border rounded px-3 py-2 file:bg-blue-800 file:text-white">
+        </div>
 
         {{-- 💾 Submit --}}
         <div class="pt-4">

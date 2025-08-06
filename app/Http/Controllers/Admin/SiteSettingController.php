@@ -38,6 +38,7 @@ class SiteSettingController extends Controller
             'logo' => 'nullable|image|mimes:jpg,jpeg,png|max:2048',
             'logo_berakhlak' => 'nullable|image|mimes:jpg,jpeg,png|max:2048',
             'logo_iph' => 'nullable|image|mimes:jpg,jpeg,png|max:2048',
+            'foto_iph' => 'nullable|image|mimes:jpg,jpeg,png|max:2048', // ✅ Tambahan baru
         ]);
 
         if ($validator->fails()) {
@@ -55,16 +56,22 @@ class SiteSettingController extends Controller
             'deskripsi_iph',
         ]);
 
-        // ✅ Handle upload logo
+        // ✅ Handle upload logo statis
         foreach (['logo', 'logo_berakhlak', 'logo_iph'] as $field) {
             if ($request->hasFile($field)) {
-                // Hapus logo lama jika ada
                 if ($setting && $setting->$field) {
                     Storage::disk('public')->delete($setting->$field);
                 }
-                // Simpan logo baru
                 $data[$field] = $request->file($field)->store('images', 'public');
             }
+        }
+
+        // ✅ Handle upload foto IPH dinamis
+        if ($request->hasFile('foto_iph')) {
+            if ($setting && $setting->foto_iph) {
+                Storage::disk('public')->delete($setting->foto_iph);
+            }
+            $data['foto_iph'] = $request->file('foto_iph')->store('images', 'public');
         }
 
         // ✅ Simpan ke database

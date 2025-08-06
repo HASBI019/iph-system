@@ -19,6 +19,6 @@ class SiteSetting extends Model
         'logo',
         'logo_berakhlak',
         'logo_iph',
+        'foto_iph',
     ];
 }
-

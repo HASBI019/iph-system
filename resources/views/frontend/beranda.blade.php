@@ -9,15 +9,31 @@
 @section('content')
 
 <section class="max-w-5xl mx-auto px-4 md:px-6 xl:px-8 py-8 space-y-8">
-    {{-- ℹ️ Tentang IPH --}}
-    @isset($setting)
-    <div class="w-full mb-6">
-        <h2 class="text-xl font-semibold text-blue-800 mb-2">ℹ️ Tentang IPH</h2>
-        <div class="prose max-w-none text-gray-700 leading-relaxed text-sm">
+ {{-- ℹ️ Tentang IPH --}}
+@isset($setting)
+<div class="w-full mb-6">
+    <h2 class="text-xl font-semibold text-blue-800 mb-4">ℹ️ Tentang IPH</h2>
+
+    <div class="flex flex-col md:flex-row gap-4 items-start">
+        {{-- Deskripsi --}}
+        <div class="md:w-2/3 text-justify text-sm leading-relaxed text-gray-700">
             {!! $setting->deskripsi_iph !!}
         </div>
-    </div>
-    @endisset
+
+        {{-- Foto --}}
+<div class="md:w-1/3">
+    @if($setting->foto_iph)
+        <img src="{{ asset('storage/' . $setting->foto_iph) }}"
+             alt="Foto IPH"
+             class="w-full h-auto rounded shadow-sm object-cover">
+    @else
+        <p class="text-sm text-gray-500 italic">Belum ada foto IPH yang ditampilkan.</p>
+    @endif
+</div>
+
+</div>
+@endisset
+
 
     {{-- 🔍 Filter --}}
     <form method="GET" action="{{ route('iph.beranda') }}" class="mb-6 flex flex-wrap gap-3 items-center justify-start text-sm">
