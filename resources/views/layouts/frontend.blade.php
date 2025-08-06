@@ -62,11 +62,61 @@
                     </div>
                 </div>
 
+                <a href="https://pst.bps.go.id/?_gl=1*utzofq*_ga*MTMyMjU4NzEyOS4xNzUzOTQ1OTIz*_ga_XXTTVXWHDB*czE3NTQ0NTA0NjEkbzUkZzAkdDE3NTQ0NTA0NjEkajYwJGwwJGgw"
+                    class="hover:underline">
+                    Layanan
+                </a>
+                
                 <a href="{{ route('grafik') }}" class="hover:underline">Grafik</a>
             </nav>
         </div>
     </div>
 </header>
+
+<!-- BANNER RESPONSIF + ANIMASI -->
+<div x-data="{ showBanner: true }" class="relative z-40 w-full">
+    <!-- Banner -->
+    <div 
+        x-show="showBanner" 
+        x-transition:enter="transition transform ease-out duration-500" 
+        x-transition:enter-start="-translate-y-full opacity-0" 
+        x-transition:enter-end="translate-y-0 opacity-100"
+        x-transition:leave="transition transform ease-in duration-500"
+        x-transition:leave-start="translate-y-0 opacity-100"
+        x-transition:leave-end="-translate-y-full opacity-0"
+        x-cloak
+        class="bg-blue-500 text-white px-4 py-3 md:py-4 md:px-6 text-sm md:text-base font-medium shadow-md flex flex-col md:flex-row justify-between items-start md:items-center w-full"
+    >
+        <div class="flex-1 max-w-7xl mx-auto">
+            Selamat Datang di Website BPS Kabupaten Tasikmalaya. Silakan datang ke Pusat Pelayanan Terpadu (PST) BPS Kabupaten Tasikmalaya untuk mendapatkan Data dan Publikasi Statistik. PST dibuka untuk umum setiap Hari Senin s/d Jum'at Jam 08.00 - 15.30 WIB. Untuk sobat data yang berada di dalam atau di luar area Kabupaten Tasikmalaya, jika menginginkan layanan statistik secara online, silakan mengakses layanan chat kami. Dalam rangka peningkatan kualitas data dan pelayanan publik BPS Kabupaten Tasikmalaya, mohon partisipasi sobat data untuk mengisi Survei Kebutuhan Data (SKD) 2025 pada 
+            <a href="https://skd.bps.go.id/SKD2025/web/entri/responden/blok1?token=HRmhlwqR4rVKy68IzR9GNRPC_Ky4DOub4CpB-icHgbkdLc-APf31gyurdiyzpAMShOR0THYJchMTSz5ov8IsvrDxUAWI5ILs-xrc" class="underline font-bold">link ini</a>. 
+            Untuk Pengaduan dan Saran Layanan Statistik bisa klik 
+            <a href="https://docs.google.com/forms/d/14P5UW4Dq_uZU5hC0qq3d0kw04oRCp8s3B9cFJoJT_ag/viewform?edit_requested=true" class="underline font-bold">link ini</a>.
+        </div>
+        <!-- Tombol X -->
+        <button 
+            @click="showBanner = false" 
+            class="ml-auto md:ml-4 mt-2 md:mt-0 bg-white text-blue-500 rounded-xl w-8 h-8 flex items-center justify-center shadow">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                <path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd" />
+            </svg>
+        </button>
+    </div>
+
+    <!-- Tombol ▼ muncul saat disembunyikan -->
+<div 
+    x-show="!showBanner" 
+    x-cloak 
+    class="absolute top-0 right-4"
+>
+    <button 
+        @click="showBanner = true" 
+        class="bg-blue-500 text-white p-2 rounded-b-full shadow-md animate-bounce">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mx-auto" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+        </svg>
+    </button>
+</div>
 
 
 <!-- KONTEN -->
@@ -126,7 +176,7 @@
         <div class="w-full px-6 pt-3 border-t border-white/30 flex flex-col md:flex-row justify-between items-center text-xs">
             <p class="text-sm font-semibold">&copy; {{ date('Y') }} Badan Pusat Statistik</p>
             <div class="flex gap-3 mt-3 md:mt-0">
-                               <a href="https://facebook.com/..." target="_blank" class="bg-blue-800 rounded-full h-10 w-10 flex items-center justify-center">
+                <a href="https://facebook.com/..." target="_blank" class="bg-blue-800 rounded-full h-10 w-10 flex items-center justify-center">
                     <img src="{{ asset('images/icon-fb.png') }}" class="h-6 w-6" alt="Facebook">
                 </a>
                 <a href="https://instagram.com/..." target="_blank" class="bg-blue-800 rounded-full h-10 w-10 flex items-center justify-center">
