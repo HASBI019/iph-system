@@ -30,17 +30,17 @@
             <div class="flex items-center gap-3">
                 <img src="{{ asset('storage/' . ($setting->logo ?? 'images/logo-bps.png')) }}" class="h-10">
                 <div>
-                    <h1 class="text-base font-bold italic uppercase leading-tight tracking-wide">
-                        {{ $setting->judul ?? 'BADAN PUSAT STATISTIK' }}
+                    <h1 class="text-base font-bold italic leading-tight tracking-wide">
+                        {{ $setting->judul ?? 'Badan Pusat Statistik' }}
                     </h1>
-                    <span class="text-sm font-semibold italic uppercase tracking-wide">
-                        {{ $setting->subjudul ?? 'KABUPATEN TASIKMALAYA' }}
+                    <span class="text-sm font-semibold italic tracking-wide">
+                        {{ $setting->subjudul ?? 'Kabupaten Tasikmalaya' }}
                     </span>
                 </div>
             </div>
 
             <!-- Menu -->
-            <nav class="flex gap-3 text-sm font-semibold uppercase mt-2 md:mt-0">
+            <nav class="flex gap-3 text-sm font-semibold mt-2 md:mt-0">
                 <a href="{{ route('beranda') }}" class="hover:underline">Beranda</a>
 
                 <!-- Dropdown -->
@@ -67,6 +67,7 @@
         </div>
     </div>
 </header>
+
 
 <!-- KONTEN -->
 <main class="w-full px-6 md:px-12 xl:px-24 py-10">
