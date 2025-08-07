@@ -66,7 +66,7 @@
                     class="hover:underline">
                     Layanan
                 </a>
-                
+
                 <a href="{{ route('grafik') }}" class="hover:underline">Grafik</a>
             </nav>
         </div>
@@ -127,7 +127,7 @@
 <!-- FOOTER -->
 <footer class="bg-blue-900 text-white mt-10">
     <div class="scale-[0.75] origin-top">
-        <div class="w-full px-6 py-8 flex flex-col md:flex-row justify-between gap-8">
+        <div class="w-full px-6 py-8 flex flex-col md:flex-row flex-wrap items-start justify-between gap-8">
             <!-- Kiri -->
             <div class="flex-1">
                 <div class="flex items-center gap-3 mb-3">
@@ -177,16 +177,16 @@
             <p class="text-sm font-semibold">&copy; {{ date('Y') }} Badan Pusat Statistik</p>
             <div class="flex gap-3 mt-3 md:mt-0">
                 <a href="https://facebook.com/..." target="_blank" class="bg-blue-800 rounded-full h-10 w-10 flex items-center justify-center">
-                    <img src="{{ asset('images/icon-fb.png') }}" class="h-6 w-6" alt="Facebook">
+                    <img src="{{ asset('images/icon-fb.png') }}" class="h-7 w-7" alt="Facebook">
                 </a>
                 <a href="https://instagram.com/..." target="_blank" class="bg-blue-800 rounded-full h-10 w-10 flex items-center justify-center">
-                    <img src="{{ asset('images/icon-ig.png') }}" class="h-7 w-7" alt="Instagram">
+                    <img src="{{ asset('images/icon-ig.png') }}" class="h-11 w-11" alt="Instagram">
                 </a>
                 <a href="https://x.com/bpstasik/" target="_blank" class="bg-blue-800 rounded-full h-10 w-10 flex items-center justify-center">
-                    <img src="{{ asset('images/icon-x.png') }}" class="h-6 w-6" alt="X (Twitter)">
+                    <img src="{{ asset('images/icon-x.png') }}" class="h-8 w-8" alt="X (Twitter)">
                 </a>
                 <a href="https://youtube.com/@bpskabtasikmalaya3206" target="_blank" class="bg-blue-800 rounded-full h-10 w-10 flex items-center justify-center">
-                    <img src="{{ asset('images/icon-yt.png') }}" class="h-5 w-5" alt="YouTube">
+                    <img src="{{ asset('images/icon-yt.png') }}" class="h-7 w-7" alt="YouTube">
                 </a>
             </div>
         </div>

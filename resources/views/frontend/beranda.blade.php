@@ -146,6 +146,55 @@
     </div>
 </div>
 
+{{-- 🧭 Banner Promosi dengan Tab --}}
+<div class="bg-white border rounded-lg shadow-md mt-10">
+    {{-- Tab Header --}}
+    <div class="flex border-b text-sm font-semibold text-blue-800">
+        <button class="promo-tablink px-4 py-2 border-b-2 border-blue-600 text-blue-700" onclick="showPromoTab(event, 'promoAllstat')">📱 Allstat BPS</button>
+        <button class="promo-tablink px-4 py-2" onclick="showPromoTab(event, 'promoSensus')">🌐 Website Sensus</button>
+    </div>
+
+    {{-- Tab Content --}}
+    <div class="p-6">
+        {{-- Allstat BPS --}}
+        <div id="promoAllstat" class="promo-tab">
+            <div class="flex flex-col md:flex-row items-center gap-6">
+                <img src="{{ asset('images/allstat-bps.png') }}" alt="Allstat BPS" class="w-60 h-auto object-contain">
+                <div>
+                    <h3 class="text-lg font-bold text-blue-800 mb-2">Akses Statistik Indonesia, Dimanapun, Kapanpun.</h3>
+                    <p class="text-sm text-gray-700 mb-3 leading-relaxed">
+                        Unduh aplikasi AllStats BPS untuk dapatkan kemudahan akses data BPS seperti: Statistik di sekitarmu, Indikator Strategis, Publikasi Nasional sampai daerah, Tabel Dinamis, dan masih banyak lagi.
+                    </p>
+                    <div class="flex gap-3">
+                        <a href="https://play.google.com/store/apps/details?id=id.go.bps.allstats&pli=1" target="_blank">
+                            <img src="{{ asset('images/google-play.png') }}" alt="Google Play" class="h-10">
+                        </a>
+                        <a href="https://apps.apple.com/id/app/allstats-bps/id1495703496" target="_blank">
+                            <img src="{{ asset('images/app-store.png') }}" alt="App Store" class="h-10">
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        {{-- Website Sensus --}}
+        <div id="promoSensus" class="promo-tab hidden">
+            <div class="flex flex-col md:flex-row items-center gap-6">
+                <img src="{{ asset('images/sensus-bps.png') }}" alt="Website Sensus BPS" class="w-60 h-auto object-contain">
+                <div>
+                    <h3 class="text-lg font-bold text-blue-800 mb-2">Satu Website Untuk Semua Data Sensus BPS</h3>
+                    <p class="text-sm text-gray-700 mb-3 leading-relaxed">
+                       Temukan data Sensus Penduduk, Sensus Pertanian, dan Sensus Ekonomi. Nikmati berbagai produk statistik dan fitur menarik di dalamnya
+                    </p>
+                    <a href="https://sensus.bps.go.id/?_gl=1*ms38i5*_ga*MTMyMjU4NzEyOS4xNzUzOTQ1OTIz*_ga_XXTTVXWHDB*czE3NTQ1MzQ3OTQkbzkkZzEkdDE3NTQ1MzQ5MTUkajYwJGwwJGgw" target="_blank" class="inline-block bg-blue-700 text-white px-5 py-2 rounded hover:bg-blue-800 transition duration-200 text-sm font-medium">
+                        Jelajahi Sekarang →
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
 </section>
 @endsection
 
@@ -199,5 +248,20 @@ $('#tabelMingguan').DataTable({
 
     evt.currentTarget.classList.add('border-indigo-600', 'text-indigo-700');
   }
+
+  function showPromoTab(evt, id) {
+  // Sembunyikan semua konten tab
+  document.querySelectorAll('.promo-tab').forEach(tab => tab.classList.add('hidden'));
+  document.getElementById(id).classList.remove('hidden');
+
+  // Reset semua tablink
+  document.querySelectorAll('.promo-tablink').forEach(btn => {
+    btn.classList.remove('border-b-2', 'border-blue-600', 'text-blue-700');
+  });
+
+  // Tambahkan class aktif ke tab yang diklik
+  evt.currentTarget.classList.add('border-b-2', 'border-blue-600', 'text-blue-700');
+}
+
 </script>
 @endpush
