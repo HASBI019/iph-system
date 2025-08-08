@@ -16,8 +16,8 @@ class IphBulanan extends Model
         'nama_komoditas_4', 'nilai_andil_4',
         'nama_komoditas_5', 'nilai_andil_5',
         'disparitas_harga', 'nilai_fluktuasi',
-        'waktu' // ⬅️ Ini wajib kalau mau nyimpan waktu input
+        'waktu' 
     ];
 
-    public $timestamps = false; // Tetap false kalau kamu ngontrol waktu sendiri
+    public $timestamps = false; 
 }

@@ -239,7 +239,6 @@ $('#tabelMingguan').DataTable({
 
     document.querySelectorAll('.tab-content').forEach(tab => tab.classList.add('hidden'));
 
-    // Tampilkan tab yang dipilih
     document.getElementById(id).classList.remove('hidden');
 
     document.querySelectorAll('.tablink').forEach(btn => {
@@ -250,16 +249,14 @@ $('#tabelMingguan').DataTable({
   }
 
   function showPromoTab(evt, id) {
-  // Sembunyikan semua konten tab
+ 
   document.querySelectorAll('.promo-tab').forEach(tab => tab.classList.add('hidden'));
   document.getElementById(id).classList.remove('hidden');
 
-  // Reset semua tablink
   document.querySelectorAll('.promo-tablink').forEach(btn => {
     btn.classList.remove('border-b-2', 'border-blue-600', 'text-blue-700');
   });
 
-  // Tambahkan class aktif ke tab yang diklik
   evt.currentTarget.classList.add('border-b-2', 'border-blue-600', 'text-blue-700');
 }
 
