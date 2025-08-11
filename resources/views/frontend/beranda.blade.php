@@ -146,7 +146,7 @@
     </div>
 </div>
 
-{{-- 🧭 Banner Promosi dengan Tab --}}
+{{-- Banner  --}}
 <div class="bg-white border rounded-lg shadow-md mt-10">
     {{-- Tab Header --}}
     <div class="flex border-b text-sm font-semibold text-blue-800">

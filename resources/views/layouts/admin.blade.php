@@ -5,10 +5,8 @@
     <title>@yield('title', 'Admin IPH')</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    {{-- Tailwind CDN --}}
     <script src="https://cdn.tailwindcss.com"></script>
 
-    {{-- Tambahan style jika dibutuhkan --}}
     @yield('styles')
 </head>
 <body class="bg-gray-100 text-gray-800">
@@ -66,7 +64,6 @@
 
         <!-- MAIN CONTENT -->
         <main class="ml-64 flex-1 overflow-y-auto p-6">
-            {{-- Navbar atau breadcrumb bisa ditambahkan di sini --}}
             @yield('content')
         </main>
 

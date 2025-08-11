@@ -193,7 +193,6 @@
     </div>
 </footer>
 
-<!-- Slot untuk script tambahan -->
 @stack('script')
 
 </body>
