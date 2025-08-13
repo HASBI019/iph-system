@@ -13,48 +13,60 @@
     <div class="flex min-h-screen">
 
         <!-- SIDEBAR FIXED -->
-        <aside class="fixed top-0 left-0 h-screen w-64 bg-blue-900 text-white flex flex-col py-6 px-4 shadow-xl z-50 overflow-hidden">
-
+        <aside class="fixed top-0 left-0 h-screen w-64 bg-gradient-to-b from-blue-900 via-blue-800 to-blue-950 text-white flex flex-col py-8 px-5 shadow-2xl z-50 overflow-hidden border-r border-blue-800">
             <!-- Background Image Layer -->
-            <div class="absolute inset-0 z-0">
-                <img src="{{ asset('images/bg-bps.jpg') }}" alt="Background BPS" class="w-full h-full object-cover opacity-30">
-                <div class="absolute inset-0 bg-blue-900/80"></div>
+            <div class="absolute inset-0 z-0 pointer-events-none">
+                <img src="{{ asset('images/bg-bps.jpg') }}" alt="Background BPS" class="w-full h-full object-cover opacity-20">
+                <div class="absolute inset-0 bg-blue-950/80"></div>
             </div>
 
             <!-- Branding -->
-            <div class="mb-6 text-center relative z-10">
-                <img src="{{ asset('images/logo-bps.png') }}" alt="Logo BPS" class="mx-auto mb-2 w-16 h-16 object-contain drop-shadow-md">
-                <h1 class="text-2xl font-bold tracking-wide">IPH Admin</h1>
-                <p class="text-sm text-blue-200">BPS Tasikmalaya</p>
+            <div class="mb-8 text-center relative z-10">
+                <img src="{{ asset('images/logo-bps.png') }}" alt="Logo BPS" class="mx-auto mb-3 w-20 h-20 object-contain drop-shadow-lg">
+                <h1 class="text-2xl font-extrabold tracking-wide text-white drop-shadow">IPH Admin</h1>
+                <p class="text-xs text-blue-200 mt-1">BPS Tasikmalaya</p>
             </div>
 
-            <!-- Navigation -->
-            <nav class="space-y-2 text-[15px] font-medium relative z-10">
+            <!-- Navigation Section -->
+            <nav class="space-y-1 text-[15px] font-medium relative z-10">
                 @php
                     $navItems = [
-                        ['url' => '/admin/dashboard', 'label' => '🏠 Dashboard'],
-                        ['url' => '/admin/iph/mingguan', 'label' => '📥 Input Mingguan'],
-                        ['url' => '/admin/iph/view-mingguan', 'label' => '📄 View Mingguan'],
-                        ['url' => '/admin/iph/bulanan', 'label' => '📥 Input Bulanan'],
-                        ['url' => '/admin/iph/view-bulanan', 'label' => '📄 View Bulanan'],
-                        ['url' => '/admin/setting', 'label' => '⚙️ Pengaturan Tampilan'],
+                        ['url' => '/admin/dashboard', 'label' => 'Dashboard', 'icon' => '🏠'],
+                        ['url' => '/admin/iph/mingguan', 'label' => 'Input Mingguan', 'icon' => '🗓️'],
+                        ['url' => '/admin/iph/view-mingguan', 'label' => 'View Mingguan', 'icon' => '📄'],
+                        ['url' => '/admin/iph/bulanan', 'label' => 'Input Bulanan', 'icon' => '📅'],
+                        ['url' => '/admin/iph/view-bulanan', 'label' => 'View Bulanan', 'icon' => '📄'],
                     ];
+                    $settingItem = ['url' => '/admin/setting', 'label' => 'Pengaturan Tampilan', 'icon' => '⚙️'];
                 @endphp
 
+                <div class="mb-2">
+                    <span class="uppercase text-xs text-blue-300 font-semibold pl-2">Menu Utama</span>
+                </div>
                 @foreach ($navItems as $item)
                     <a href="{{ $item['url'] }}"
-                       class="block px-4 py-2 rounded transition-all duration-200 hover:bg-blue-800 {{ request()->is(ltrim($item['url'], '/')) ? 'bg-blue-800' : '' }}">
-                        {{ $item['label'] }}
+                       class="flex items-center gap-3 px-4 py-2 rounded-lg transition-all duration-200 hover:bg-blue-800 {{ request()->is(ltrim($item['url'], '/')) ? 'bg-blue-800 font-bold shadow' : '' }}">
+                        <span class="text-lg">{{ $item['icon'] }}</span>
+                        <span>{{ $item['label'] }}</span>
                     </a>
                 @endforeach
+
+                <div class="mt-4 mb-2">
+                    <span class="uppercase text-xs text-blue-300 font-semibold pl-2">Pengaturan</span>
+                </div>
+                <a href="{{ $settingItem['url'] }}"
+                   class="flex items-center gap-3 px-4 py-2 rounded-lg transition-all duration-200 hover:bg-blue-800 {{ request()->is(ltrim($settingItem['url'], '/')) ? 'bg-blue-800 font-bold shadow' : '' }}">
+                    <span class="text-lg">{{ $settingItem['icon'] }}</span>
+                    <span>{{ $settingItem['label'] }}</span>
+                </a>
             </nav>
 
-            <!-- Logout -->
-            <div class="mt-auto pt-6 border-t border-white/20 relative z-10">
+            <!-- Logout Section -->
+            <div class="mt-auto pt-8 border-t border-white/20 relative z-10">
                 <form method="POST" action="/logout">
                     @csrf
-                    <button class="w-full text-left px-4 py-2 rounded bg-blue-600 hover:bg-blue-800 transition duration-200">
-                        🔒 Logout
+                    <button class="w-full flex items-center gap-3 text-left px-4 py-2 rounded-lg bg-blue-600 hover:bg-blue-800 transition duration-200 font-semibold">
+                        <span class="text-lg">🔒</span> <span>Logout</span>
                     </button>
                 </form>
             </div>

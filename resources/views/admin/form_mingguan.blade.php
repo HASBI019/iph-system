@@ -20,7 +20,7 @@
             <div>
                 <label class="block font-semibold mb-1 text-gray-700">📅 Tahun</label>
                 <select name="tahun" required class="w-full p-2 border rounded focus:ring-2 focus:ring-indigo-500">
-                    <option value="">-- Pilih Tahun --</option>
+                    <option value="">Pilih Tahun</option>
                     @for ($tahun = 2023; $tahun <= 2030; $tahun++)
                         <option value="{{ $tahun }}">{{ $tahun }}</option>
                     @endfor
@@ -30,7 +30,7 @@
                 <label class="block font-semibold mb-1 text-gray-700">🗓️ Bulan</label>
                 @php $bulanList = ['Januari','Februari','Maret','April','Mei','Juni','Juli','Agustus','September','Oktober','November','Desember']; @endphp
                 <select name="bulan" required class="w-full p-2 border rounded focus:ring-2 focus:ring-indigo-500">
-                    <option value="">-- Pilih Bulan --</option>
+                    <option value="">Pilih Bulan</option>
                     @foreach ($bulanList as $bulan)
                         <option value="{{ $bulan }}">{{ $bulan }}</option>
                     @endforeach
@@ -39,7 +39,7 @@
             <div>
                 <label class="block font-semibold mb-1 text-gray-700">📆 Minggu ke</label>
                 <select name="minggu_ke" required class="w-full p-2 border rounded focus:ring-2 focus:ring-indigo-500">
-                    <option value="">-- Pilih Minggu --</option>
+                    <option value="">Pilih Minggu</option>
                     @for ($i = 1; $i <= 5; $i++)
                         <option value="{{ $i }}">{{ 'Minggu '.$i }}</option>
                     @endfor

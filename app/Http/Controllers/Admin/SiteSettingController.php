@@ -34,11 +34,12 @@ class SiteSettingController extends Controller
             'telepon' => 'nullable|string|max:30',
             'email' => 'nullable|string|max:255',
             'tahukah_kamu' => 'nullable|string',
-            'deskripsi_iph' => 'nullable|string', // CKEditor HTML
+            'deskripsi_iph' => 'nullable|string', 
             'logo' => 'nullable|image|mimes:jpg,jpeg,png|max:2048',
             'logo_berakhlak' => 'nullable|image|mimes:jpg,jpeg,png|max:2048',
             'logo_iph' => 'nullable|image|mimes:jpg,jpeg,png|max:2048',
-            'foto_iph' => 'nullable|image|mimes:jpg,jpeg,png|max:2048', // ✅ Tambahan baru
+            'foto_iph' => 'nullable|image|mimes:jpg,jpeg,png|max:2048', 
+            'background_style' => 'nullable|string|max:255',
         ]);
 
         if ($validator->fails()) {
@@ -54,6 +55,7 @@ class SiteSettingController extends Controller
             'email',
             'tahukah_kamu',
             'deskripsi_iph',
+            'background_style',
         ]);
 
         // ✅ Handle upload logo statis

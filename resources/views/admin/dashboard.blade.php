@@ -86,7 +86,6 @@
         <p class="text-sm">Monitoring fluktuasi harga secara efisien & akurat setiap minggu dan bulan.</p>
     </div>
 
-</div>
 
-
+    </div>
 @endsection
