@@ -43,26 +43,19 @@ class IphController extends Controller
 
   public function saveBulanan(Request $request)
 {
-
     $raw = $request->all();
     $this->parseDecimalFields($raw);
-    $data = validator($raw, $this->rulesBulanan())->validate();
+    $data = validator($raw, $this->rulesMingguan())->validate();
     $data['status_harga'] = $this->statusHarga($data['perubahan_harga']);
     $data['waktu'] = now();
-
-    IphBulanan::updateOrCreate([
+    IphMingguan::updateOrCreate([
         'tahun' => $data['tahun'],
         'bulan' => $data['bulan'],
     ], $data);
 
     return redirect()->back()->with('success', 'Data IPH Bulanan berhasil disimpan.');
 }
-    // Edit Data
-    public function editMingguan($id)
-    {
-        $data = IphMingguan::findOrFail($id);
-        return view('admin.edit_mingguan', compact('data'));
-    }
+
 
     public function editBulanan($id)
     {
